@@ -8,6 +8,7 @@ using UniversityAPI_ApiVersioning_Homework.Dtos;
 
 namespace UniversityAPI_ApiVersioning_Homework.Controllers.V2
 {
+    [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("2.0")]
     public class StudentController : ControllerBase

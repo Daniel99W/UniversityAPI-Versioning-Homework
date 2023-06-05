@@ -6,6 +6,7 @@ using UniversityAPI_ApiVersioning_Homework.dtos;
 
 namespace UniversityAPI_ApiVersioning_Homework.Controllers.V1
 {
+    [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
     public class StudentController : ControllerBase

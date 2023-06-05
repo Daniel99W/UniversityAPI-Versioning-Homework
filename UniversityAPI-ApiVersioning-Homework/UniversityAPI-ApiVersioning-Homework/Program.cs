@@ -19,11 +19,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApiVersioning(options =>
 {
     options.AssumeDefaultVersionWhenUnspecified = true;
-    options.DefaultApiVersion = new ApiVersion(1, 0);
     options.ReportApiVersions = true;
     options.ApiVersionReader = ApiVersionReader.Combine(
-        new QueryStringApiVersionReader("api-version"),//added in the query string of the request
-        new HeaderApiVersionReader("x-version") //added in the header of the request
+        /*new QueryStringApiVersionReader("api-version"),*/
+        new HeaderApiVersionReader("x-version")
+        //new MediaTypeApiVersionReader("version")
         );
 });
 builder.Services.AddVersionedApiExplorer(options =>
@@ -33,11 +33,10 @@ builder.Services.AddVersionedApiExplorer(options =>
 });
 builder.Services.AddScoped<IRepositoryStudent, StudentsRepository>();
 builder.Services.AddAutoMapper(typeof(Program));
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
