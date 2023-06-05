@@ -25,7 +25,7 @@ namespace UniversityAPI.DAL.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<Student>> GetStudentsByName(string name)
+        public async Task<List<Student>> GetStudentsByFirstName(string name)
         {
             return await _universitateContext
                 .Students.Where(s => s.Nume.Contains(name))

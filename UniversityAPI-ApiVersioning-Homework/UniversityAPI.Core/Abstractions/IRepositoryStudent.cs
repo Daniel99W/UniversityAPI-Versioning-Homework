@@ -9,7 +9,7 @@ namespace UniversityAPI.Core.Abstractions
 {
     public interface IRepositoryStudent : IRepository<Student>
     {
-        public Task<List<Student>> GetStudentsByName(string name);
+        public Task<List<Student>> GetStudentsByFirstName(string name);
         public Task<List<Student>> GetStudentsByCompleteName(string name);
     }
 }
