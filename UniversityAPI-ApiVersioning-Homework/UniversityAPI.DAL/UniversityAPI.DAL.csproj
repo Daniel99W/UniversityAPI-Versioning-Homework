@@ -19,8 +19,4 @@
     <ProjectReference Include="..\UniversityAPI.Core\UniversityAPI.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
 </Project>

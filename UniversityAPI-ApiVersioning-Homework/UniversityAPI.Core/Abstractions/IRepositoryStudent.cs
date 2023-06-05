@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace UniversityAPI.Core.Abstractions
 {
-    internal class IRepositoryStudent
+    public interface IRepositoryStudent : IRepository<Student>
     {
+        public Task<List<Student>> GetStudentsByName(string name);
+        public Task<List<Student>> GetStudentsByCompleteName(string name);
     }
 }

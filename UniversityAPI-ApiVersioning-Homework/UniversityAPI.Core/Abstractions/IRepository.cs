@@ -12,7 +12,6 @@ namespace UniversityAPI.Core.Abstractions
         void Delete(T obj);
         Task<T?> Read(int id);
         T Update(T obj);
-        void SaveChanges();
         Task SaveChangesAsync();
         Task<IEnumerable<T>> GetAll();
     }

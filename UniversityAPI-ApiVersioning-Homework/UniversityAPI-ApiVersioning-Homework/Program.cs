@@ -1,5 +1,9 @@
 using DAL;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
+using UniversityAPI.Core.Abstractions;
+using UniversityAPI.DAL.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,9 +14,27 @@ builder.Services.AddDbContext<UniversitateContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("UnivConnString"));
 });
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddApiVersioning(options =>
+{
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+    options.ReportApiVersions = true;
+    options.ApiVersionReader = ApiVersionReader.Combine(
+        new QueryStringApiVersionReader("api-version"),
+        new HeaderApiVersionReader("x-version"),
+        new MediaTypeApiVersionReader("ver")
+        );
+});
+builder.Services.AddVersionedApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
+builder.Services.AddScoped<IRepositoryStudent, StudentsRepository>();
+builder.Services.AddAutoMapper(typeof(Program));
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 var app = builder.Build();
 

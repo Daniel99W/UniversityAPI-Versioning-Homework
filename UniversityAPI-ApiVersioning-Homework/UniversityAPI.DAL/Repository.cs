@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DAL;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,41 +9,48 @@ using UniversityAPI.Core.Abstractions;
 
 namespace UniversityAPI.DAL
 {
-    public abstract class Repository<T> : IRepository<T>
+    public abstract class Repository<T> : IRepository<T> where T : class
     {
+        protected UniversitateContext _universitateContext { get; set; }
+
+        public Repository(UniversitateContext universitateContext)
+        {
+            _universitateContext = universitateContext;
+        }
+
         public T Create(T obj)
         {
-            throw new NotImplementedException();
+            return _universitateContext.Add(obj).Entity;
         }
 
         public void Delete(T obj)
         {
-            throw new NotImplementedException();
+            _universitateContext.Remove(obj);
         }
 
-        public Task<IEnumerable<T>> GetAll()
+        public async Task<T?> Read(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<T?> Read(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveChanges()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task SaveChangesAsync()
-        {
-            throw new NotImplementedException();
+            return await _universitateContext.FindAsync<T>(id);
         }
 
         public T Update(T obj)
         {
-            throw new NotImplementedException();
+            return _universitateContext.Update(obj).Entity;
+        }
+
+        public async Task SaveChanges()
+        {
+            _universitateContext.SaveChanges();
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _universitateContext.SaveChangesAsync();
+        }
+
+        public async virtual Task<IEnumerable<T>> GetAll()
+        {
+            return await _universitateContext.Set<T>().ToListAsync();
         }
     }
 }

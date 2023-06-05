@@ -8,6 +8,7 @@ namespace DAL;
 public partial class UniversitateContext : DbContext
 {
     public UniversitateContext()
+        :base()
     {
     }
 
