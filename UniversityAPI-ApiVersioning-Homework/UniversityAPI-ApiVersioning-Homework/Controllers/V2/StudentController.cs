@@ -2,7 +2,9 @@
 using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using UniversityAPI.Core.Abstractions;
+using UniversityAPI_ApiVersioning_Homework.Core.Utilities;
 using UniversityAPI_ApiVersioning_Homework.dtos;
+using UniversityAPI_ApiVersioning_Homework.Dtos;
 
 namespace UniversityAPI_ApiVersioning_Homework.Controllers.V2
 {
@@ -25,6 +27,21 @@ namespace UniversityAPI_ApiVersioning_Homework.Controllers.V2
             var results = await _studentRepository.GetStudentsByFirstName(name);
             var mappedResults = _mapper.Map<IEnumerable<StudentGetDto>>(results);
             return Ok(mappedResults);
+        }
+
+        [HttpGet("GetStudentsByFirstNamePaginated")]
+        [MapToApiVersion("2.1")]
+        public async Task<ActionResult<IEnumerable<StudentGetDto>>> GetStudentsByFirstNamePaginated(
+            [FromQuery] GetStudentsPaginatedQueryDto getStudentsPaginatedQueryDto)
+        {
+            var result =
+                await _studentRepository.GetStudentsByFirstNamePaginated(
+                    getStudentsPaginatedQueryDto.name,
+                    getStudentsPaginatedQueryDto.Page,
+                    getStudentsPaginatedQueryDto.StudentsPerPage);
+
+            var mappedResult = _mapper.Map<Pagination<StudentGetDto>>(result);
+            return Ok(mappedResult);
         }
 
     }

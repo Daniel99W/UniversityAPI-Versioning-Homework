@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UniversityAPI.Core.Abstractions;
+using UniversityAPI_ApiVersioning_Homework.Core.Utilities;
 
 namespace UniversityAPI.DAL.Repositories
 {
@@ -32,6 +33,18 @@ namespace UniversityAPI.DAL.Repositories
                 .ToListAsync();
         }
 
-
+        public async Task<Pagination<Student>> GetStudentsByFirstNamePaginated(
+            string? name, 
+            int page,
+            int studentsPerPage)
+        {
+            IQueryable<Student> query = _universitateContext.Students;
+            if(name != null)
+            {
+                query = query
+                    .Where(s => s.Nume.Contains(name));
+            }
+            return await Task.FromResult(query.Paginate(page, studentsPerPage));
+        }
     }
 }
