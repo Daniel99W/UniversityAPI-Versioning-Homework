@@ -19,7 +19,6 @@ namespace UniversityAPI_ApiVersioning_Homework.Controllers.V1
             _studentRepository = repositoryStudent;
         }
 
-
         [HttpGet("GetStudentsByCompleteName")]
         [MapToApiVersion("1.0")]
         public async Task<ActionResult<IEnumerable<StudentGetDto>>> GetStudentsByCompleteName([FromQuery] string name)
@@ -28,10 +27,6 @@ namespace UniversityAPI_ApiVersioning_Homework.Controllers.V1
             var mappedResults = _mapper.Map<IEnumerable<StudentGetDto>>(results);
             return Ok(mappedResults);
         }
-
-
-
-
 
     }
 }

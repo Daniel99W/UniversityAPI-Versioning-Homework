@@ -37,7 +37,7 @@ namespace UniversityAPI_ApiVersioning_Homework.Controllers.V2
         {
             var result =
                 await _studentRepository.GetStudentsByFirstNamePaginated(
-                    getStudentsPaginatedQueryDto.name,
+                    getStudentsPaginatedQueryDto.Name,
                     getStudentsPaginatedQueryDto.Page,
                     getStudentsPaginatedQueryDto.StudentsPerPage);
 
